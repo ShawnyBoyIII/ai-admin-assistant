@@ -1,0 +1,2 @@
+# Install this on Windows 11 RTX machine after CUDA/cuDNN are ready.
+faster-whisper==1.0.3
