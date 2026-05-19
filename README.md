@@ -34,6 +34,12 @@ Install optional dependencies on Computer B:
 pip install -r requirements-gpu-transcription.txt
 ```
 
+## Recording Disclaimer
+See [Recording Disclaimer](docs/recording_disclaimer.md) before using microphone capture.
+
+## Future Enhancements
+- Personal voice detection and speaker recognition so the system can prioritize your spoken actions.
+
 ## Windows Transfer
 Use `docs/windows_setup.md` for deployment on both machines.
 

@@ -4,6 +4,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
+from tkinter import messagebox
 
 import customtkinter as ctk
 import numpy as np
@@ -48,6 +49,12 @@ class RecorderApp(ctk.CTk):
         self.duration_entry.insert(0, "15")
         self.duration_entry.pack(pady=8)
 
+        self.notice_label = ctk.CTkLabel(
+            self,
+            text="By recording, you confirm legal consent from all participants.",
+        )
+        self.notice_label.pack(pady=6)
+
         self.start_btn = ctk.CTkButton(self, text="Start Recording", command=self.start_recording)
         self.start_btn.pack(pady=10)
 
@@ -91,6 +98,14 @@ class RecorderApp(ctk.CTk):
                     break
 
     def start_recording(self):
+        consent_ok = messagebox.askyesno(
+            "Recording Consent Required",
+            "Before recording, confirm that all participants were informed and legal consent was obtained. Continue?",
+        )
+        if not consent_ok:
+            self.append_log("Recording cancelled: consent confirmation not accepted.")
+            return
+
         try:
             mins = int(self.duration_entry.get().strip())
             if mins <= 0:
