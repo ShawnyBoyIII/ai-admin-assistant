@@ -22,7 +22,7 @@ python -m venv .venv
 pip install -r requirements.txt
 pip install -r requirements-gpu-transcription.txt
 copy .env.example .env
-python services\processor\main.py --input .\dropbox_in --output .\output
+python services\processor\main.py --input .\dropbox_in --output .\output --watch --poll-seconds 5
 ```
 
 ## Transfer Options from A -> B

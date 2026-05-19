@@ -21,11 +21,22 @@ cp .env.example .env
 python3 services/processor/main.py --input ./sample_audio --output ./output
 ```
 
+## Continuous Processing (Computer B)
+```bash
+python3 services/processor/main.py --input ./dropbox_in --output ./output --watch --poll-seconds 5
+```
+Job states are written to `output/jobs/<job_id>/status.json` with:
+- `received`
+- `processing`
+- `done`
+- `failed`
+
 ## Health Check
 ```bash
 cd ai-admin-assistant
 source .venv/bin/activate
 python scripts/health_check.py --project-root .
+python scripts/quality_check.py
 ```
 
 ## Optional GPU Transcription (Windows RTX machine)
@@ -42,10 +53,13 @@ See [Recording Disclaimer](docs/recording_disclaimer.md) before using microphone
 
 ## Windows Transfer
 Use `docs/windows_setup.md` for deployment on both machines.
+Use `docs/uat_test_plan.md` for the 2-3 day UAT checklist.
 
 ## MVP1 Status
 - [x] Project scaffold
 - [x] Recorder app scaffold with timed recording + save
 - [x] Processing pipeline scaffold (transcribe -> generate -> export)
+- [x] Continuous folder watch + job status tracking
+- [x] Rule-based admin extraction quality pass
 - [x] Word export + JSON/text outputs
 - [ ] Model wiring and production tuning on RTX machine

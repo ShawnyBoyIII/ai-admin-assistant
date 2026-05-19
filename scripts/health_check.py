@@ -14,6 +14,7 @@ REQUIRED_OUTPUTS = [
     'reminders.json',
     'emails_draft.json',
     'AI_Admin_Assistant_Output.docx',
+    'status.json',
     'job_result.json',
 ]
 
