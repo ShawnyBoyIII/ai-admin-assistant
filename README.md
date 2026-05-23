@@ -45,6 +45,21 @@ Install optional dependencies on Computer B:
 pip install -r requirements-gpu-transcription.txt
 ```
 
+## Local LLM Extraction Setup (Optional but Recommended)
+To improve task extraction, summarization, and email drafting quality without sending your private transcripts to the cloud, this project supports [Ollama](https://ollama.com/) for entirely local processing.
+1. Download and install [Ollama](https://ollama.com/).
+2. Open a terminal and pull the Llama 3 model:
+   ```bash
+   ollama run llama3
+   ```
+3. Update your `.env` file to enable it (enabled by default):
+   ```env
+   USE_OLLAMA=true
+   OLLAMA_URL=http://localhost:11434/api/generate
+   OLLAMA_MODEL=llama3
+   ```
+4. If Ollama is unavailable or errors out, the pipeline will seamlessly fallback to rule-based keyword extraction.
+
 ## Recording Disclaimer
 See [Recording Disclaimer](docs/recording_disclaimer.md) before using microphone capture.
 
