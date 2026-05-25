@@ -202,7 +202,65 @@ def build_email_drafts(summary: str, tasks):
     ]
 
 
+def extract_with_ollama(transcript_text: str):
+    try:
+        from ollama_client import query_ollama
+    except ImportError:
+        # Fallback for relative imports depending on how script is run
+        from .ollama_client import query_ollama
+
+    prompt = f"""
+Analyze the following transcript from a meeting or work session and extract key information.
+
+Transcript:
+{transcript_text}
+
+Output the result as a JSON object with the following structure exactly:
+{{
+  "summary": "A brief, 2-3 sentence summary of the discussion.",
+  "tasks": [
+    {{
+      "id": 1,
+      "task": "Description of the task",
+      "priority": "High, Medium, or Low",
+      "owner": "Name of the person responsible, 'Team', or 'You'"
+    }}
+  ],
+  "reminders": [
+    {{
+      "when": "When the reminder should occur (e.g., 'Tomorrow', 'Next week', 'By Friday')",
+      "text": "What to remind about"
+    }}
+  ],
+  "email_drafts": [
+    {{
+      "subject": "Subject of the email",
+      "body": "Body of the email. Use plain text formatting with newlines."
+    }}
+  ]
+}}
+
+Ensure the response is valid JSON. Extract as many tasks, reminders, and draft as many relevant emails as necessary based on the transcript.
+"""
+    print("Attempting to query Ollama for information extraction...")
+    return query_ollama(prompt, json_format=True)
+
 def generate_admin_pack(transcript_text: str):
+    import os
+    from dotenv import load_dotenv
+    load_dotenv()
+
+    use_ollama = os.getenv("USE_OLLAMA", "true").lower() == "true"
+
+    if use_ollama:
+        pack = extract_with_ollama(transcript_text)
+        if pack and all(key in pack for key in ["summary", "tasks", "reminders", "email_drafts"]):
+            print("Successfully extracted admin pack using Ollama.")
+            return pack
+        else:
+            print("Ollama extraction failed or returned invalid format. Falling back to rule-based extraction.")
+
+    # Fallback to rule-based extraction
     lines = split_lines(transcript_text)
     summary = build_summary(lines)
     tasks = extract_tasks(lines)
