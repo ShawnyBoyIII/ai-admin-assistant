@@ -45,8 +45,7 @@ def transcribe_audio(audio_path: Path) -> str:
 
         return text or ""
     except ImportError as exc:
-        print(f"faster-whisper is not installed. Returning fallback transcription. Error: {exc}")
-        return f"[Transcription unavailable: {exc}]"
+        raise RuntimeError(f"Transcription dependency missing for {audio_path}: {exc}") from exc
     except Exception as exc:
         print(f"Error during transcription: {exc}")
         # Reraise exception to fail the job rather than silently succeeding with a stub
