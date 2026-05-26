@@ -203,12 +203,6 @@ def build_email_drafts(summary: str, tasks):
 
 
 def extract_with_ollama(transcript_text: str):
-    import sys
-    from pathlib import Path
-    processor_dir = Path(__file__).resolve().parent
-    if str(processor_dir) not in sys.path:
-        sys.path.insert(0, str(processor_dir))
-
     try:
         from ollama_client import query_ollama
     except ImportError:
