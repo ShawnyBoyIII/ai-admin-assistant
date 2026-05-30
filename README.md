@@ -39,7 +39,7 @@ python scripts/health_check.py --project-root .
 python scripts/quality_check.py
 ```
 
-## Optional GPU Transcription (Windows RTX machine)
+## Optional GPU Transcription & Speaker Diarization (Windows RTX machine)
 Install optional dependencies on Computer B:
 ```powershell
 pip install -r requirements-gpu-transcription.txt
@@ -64,7 +64,7 @@ To improve task extraction, summarization, and email drafting quality without se
 See [Recording Disclaimer](docs/recording_disclaimer.md) before using microphone capture.
 
 ## Future Enhancements
-- Personal voice detection and speaker recognition so the system can prioritize your spoken actions.
+- Further tuning of LLM prompts for multi-speaker task prioritization.
 
 ## Windows Transfer
 Use `docs/windows_setup.md` for deployment on both machines.

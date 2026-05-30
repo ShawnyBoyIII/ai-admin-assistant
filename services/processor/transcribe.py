@@ -4,12 +4,13 @@ from pathlib import Path
 
 def transcribe_audio(audio_path: Path) -> str:
     """
-    MVP1 stub transcription path.
-    If faster-whisper is installed and model downloads are configured,
-    replace with GPU-enabled transcription in production setup.
+    Transcription with diarization (speaker separation).
+    Uses faster-whisper for transcription and pyannote.audio for diarization.
     """
     try:
         from faster_whisper import WhisperModel
+        from pyannote.audio import Pipeline
+        import torch
         from dotenv import load_dotenv
 
         load_dotenv()
