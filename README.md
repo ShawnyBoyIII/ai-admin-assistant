@@ -45,16 +45,6 @@ Install optional dependencies on Computer B:
 pip install -r requirements-gpu-transcription.txt
 ```
 
-To enable **Speaker Diarization** (separating speakers like "SPEAKER_00" and "SPEAKER_01") and **Personal Voice Detection** (automatically renaming your voice to "You"):
-1. Create an account on [Hugging Face](https://huggingface.co/) and generate a read-only Access Token.
-2. Visit the following links while logged into Hugging Face and accept their user agreements:
-   - [pyannote/speaker-diarization-3.1](https://huggingface.co/pyannote/speaker-diarization-3.1)
-   - [pyannote/segmentation-3.0](https://huggingface.co/pyannote/segmentation-3.0)
-   - [pyannote/speaker-diarization-community-1](https://huggingface.co/pyannote/speaker-diarization-community-1)
-   - [pyannote/embedding](https://huggingface.co/pyannote/embedding) (For personal voice detection)
-3. Add your token to your `.env` file: `HF_TOKEN=your_token_here`
-4. *(Optional)* Place a short (10-30 second) recording of your own voice in the project root named `reference_voice.wav`. The pipeline will use this to identify and label your tasks specifically as "You".
-
 ## Local LLM Extraction Setup (Optional but Recommended)
 To improve task extraction, summarization, and email drafting quality without sending your private transcripts to the cloud, this project supports [Ollama](https://ollama.com/) for entirely local processing.
 1. Download and install [Ollama](https://ollama.com/).
